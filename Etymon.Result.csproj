@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -8,11 +10,12 @@
 	<PropertyGroup>
 		<!-- Choose the appropriate target framework -->
 		<PackageId>Etymon.Result</PackageId>
-		<Version>1.0.2</Version>
+		<Version>1.0.5</Version>
 		<Authors>Etymon Technologies</Authors>
 		<Description>A lightweight Result type for handling success and failure outcomes in C#.</Description>
 		<PackageTags>Result Library (Private company use)</PackageTags>
 		<Readme>README.md</Readme>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<!-- Optional -->
 	</PropertyGroup>
 
