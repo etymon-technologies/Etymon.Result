@@ -6,27 +6,46 @@ using System.Threading.Tasks;
 
 namespace Etymon.Result;
 
-public class Result<T>
+public class Result
 {
-    private Result(T data)
+    public Result()
     {
-        Data = data;
         Error = null;
     }
 
-    private Result(Error error)
+    public Result(Error error)
     {
         Error = error;
-        Data = default;
     }
-    public T? Data { get; }
-
-    public Error? Error { get; set; }
 
     public bool IsSuccess => Error == null;
 
     public bool IsFailure => Error != null;
 
+    public Error? Error { get; }
+
+    public static Result Success() => new();
+
+    
+    public static Result Failure(Error error) => new(error);
+
+}
+
+public class Result<T> : Result
+{
+    private Result(T data)
+    {
+        Data = data;
+    }
+
+    private Result(Error error): base(error)
+    {
+        
+        Data = default;
+    }
+    public T? Data { get; }
+
+    
     public static Result<T> Success(T data) => new(data);
     public static Result<T> Failure(Error error) => new(error);
 
