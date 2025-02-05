@@ -139,8 +139,8 @@ public class Result<T> : Result
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="onSuccess"/> or <paramref name="onFailure"/> is null.</exception>
     public TResult Match<TResult>(Func<T, TResult> onSuccess, Func<Error, TResult> onFailure)
     {
-        if (onSuccess == null) throw new ArgumentNullException(nameof(onSuccess));
-        if (onFailure == null) throw new ArgumentNullException(nameof(onFailure));
+        ArgumentNullException.ThrowIfNull(onSuccess);
+        ArgumentNullException.ThrowIfNull(onFailure);
 
         return IsSuccess ? onSuccess(Data!) : onFailure(Error!);
     }
@@ -178,28 +178,22 @@ public class Result<T> : Result
 /// <summary>
 /// Represents an error that describes a failure in an operation.
 /// </summary>
-public class Error
+/// <remarks>
+/// Initializes a new instance of the <see cref="Error"/> class.
+/// </remarks>
+/// <param name="code">A unique identifier for the error.</param>
+/// <param name="message">A human-readable description of the error.</param>
+public class Error(string code, string message)
 {
     /// <summary>
     /// Gets the unique identifier for the error.
     /// </summary>
-    public string Code { get; }
+    public string Code { get; } = code;
 
     /// <summary>
     /// Gets a human-readable error message describing the failure.
     /// </summary>
-    public string Message { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Error"/> class.
-    /// </summary>
-    /// <param name="code">A unique identifier for the error.</param>
-    /// <param name="message">A human-readable description of the error.</param>
-    public Error(string code, string message)
-    {
-        Code = code;
-        Message = message;
-    }
+    public string Message { get; } = message;
 
     /// <summary>
     /// Returns a string representation of the error, combining the error code and message.
