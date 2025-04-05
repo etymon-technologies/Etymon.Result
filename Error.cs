@@ -8,6 +8,16 @@
 public class Error(string code, string message)
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="Error"/> class using a <see cref="ResultCode"/> as the code.
+    /// </summary>
+    /// <param name="resultCode">The <see cref="ResultCode"/> representing the error type.</param>
+    /// <param name="message">A human-readable error message.</param>
+    public Error(ResultCode resultCode, string message)
+        : this(resultCode.ToString(), message)
+    {
+    }
+
+    /// <summary>
     /// Gets the unique identifier for the error.
     /// </summary>
     public string Code { get; } = code;

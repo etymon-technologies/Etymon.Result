@@ -25,6 +25,11 @@ public class Result<T> : Result
         Data = default;
     }
 
+    private Result(ResultCode code, string message) : base(code, message)
+    {
+        Data = default;
+    }
+
     /// <summary>
     /// Gets the result data if the operation was successful; otherwise, <c>null</c>.
     /// </summary>
@@ -45,6 +50,14 @@ public class Result<T> : Result
     public static new Result<T> Failure(Error error) => new(error);
 
     /// <summary>
+    /// Creates a failed <see cref="Result{T}"/> with the specified result code and message.
+    /// </summary>
+    /// <param name="code">The result code representing the failure reason.</param>
+    /// <param name="message">The failure message.</param>
+    /// <returns>A failure result.</returns>
+    public static new Result<T> Failure(ResultCode code, string message) => new(code, message);
+
+    /// <summary>
     /// Implicitly converts a value of type <typeparamref name="T"/> to a successful <see cref="Result{T}"/>.
     /// </summary>
     /// <param name="data">The result data.</param>
@@ -55,6 +68,12 @@ public class Result<T> : Result
     /// </summary>
     /// <param name="error">The error.</param>
     public static implicit operator Result<T>(Error error) => new(error);
+
+    /// <summary>
+    /// Implicitly converts a tuple of <see cref="ResultCode"/> and string to a failed <see cref="Result{T}"/>.
+    /// </summary>
+    /// <param name="error">The error.</param>
+    public static implicit operator Result<T>((ResultCode code, string message) error) => new(error.code, error.message);
 
     /// <summary>
     /// Matches the result to either a success or failure handler.
@@ -76,7 +95,6 @@ public class Result<T> : Result
     /// Returns a string representation of the result.
     /// </summary>
     /// <returns>"Success: {Data}" if successful; otherwise, the error details.</returns>
-
     public override string ToString() => IsSuccess ? $"Success: {Data}" : $"Failure: {Error}";
 
     /// <summary>

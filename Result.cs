@@ -24,6 +24,20 @@ public class Result
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Result"/> class with a result code and message.
+    /// </summary>
+    /// <param name="code">The result code representing the failure reason.</param>
+    /// <param name="message">The failure message.</param>
+    /// <exception cref="ArgumentException">Thrown if <paramref name="code"/> is <see cref="ResultCode.Success"/>.</exception>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="message"/> is null.</exception>
+    public Result(ResultCode code, string message)
+        : this(new Error(code, message))
+    {
+        if (code == ResultCode.Success)
+            throw new ArgumentException("Use Success() method to create a success result.", nameof(code));
+    }
+
+    /// <summary>
     /// Gets a value indicating whether the operation was successful.
     /// </summary>
     public bool IsSuccess => Error == null;
@@ -45,6 +59,14 @@ public class Result
     /// <param name="error">The error representing the failure reason.</param>
     /// <returns>A failure result.</returns>
     public static Result Failure(Error error) => new(error);
+
+    /// <summary>
+    /// Creates a failed <see cref="Result"/> with the specified result code and message.
+    /// </summary>
+    /// <param name="code">The result code representing the failure reason.</param>
+    /// <param name="message">The failure message.</param>
+    /// <returns>A failure result.</returns>
+    public static Result Failure(ResultCode code, string message) => new(code, message);
 
     /// <summary>
     /// Returns a string representation of the result.
