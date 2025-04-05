@@ -1,11 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+	<PropertyGroup>
+		<!-- Choose the appropriate target framework -->
+		<PackageId>Etymon.Result.Extensions</PackageId>
+		<Version>1.2.0</Version>
+		<Authors>Etymon Technologies</Authors>
+		<Description>Etymon.Result.Extensions provides helper extensions for working with Etymon.Result, specifically for ASP.NET Core Web APIs.</Description>
+		<PackageTags>Result Extensions Library for API </PackageTags>
+		<Readme>README.md</Readme>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<!-- Optional -->
+	</PropertyGroup>
 
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
   </ItemGroup>
