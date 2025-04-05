@@ -11,7 +11,7 @@ public static class ResultExtensions
     /// Converts a <see cref="Result{T}"/> to an appropriate <see cref="ActionResult{T}"/>
     /// based on its result code.
     /// </summary>
-    public static ActionResult<Result<T>> ToActionResult<T>(this Result<T> result)
+    public static IActionResult ToActionResult<T>(this Result<T> result)
     {
         return result.Error?.Code switch
         {
