@@ -10,7 +10,7 @@
 	<PropertyGroup>
 		<!-- Choose the appropriate target framework -->
 		<PackageId>Etymon.Result.Extensions</PackageId>
-		<Version>1.2.0</Version>
+		<Version>1.2.1</Version>
 		<Authors>Etymon Technologies</Authors>
 		<Description>Etymon.Result.Extensions provides helper extensions for working with Etymon.Result, specifically for ASP.NET Core Web APIs.</Description>
 		<PackageTags>Result Extensions Library for API </PackageTags>
