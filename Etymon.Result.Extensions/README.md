@@ -1,6 +1,6 @@
 ﻿# Etymon.Result.Extensions
 
-**Etymon.Result.Extensions** provides helper extensions for working with [Etymon.Result](https://www.nuget.org/packages/Etymon.Result), specifically for ASP.NET Core Web APIs. It simplifies controller code by converting `Result<T>` objects into appropriate HTTP responses using `ToActionResult()`.
+**Etymon.Result.Extensions** provides helper extensions for working with [Etymon.Result](https://www.nuget.org/packages/Etymon.Result), specifically for ASP.NET Core Web APIs. It simplifies controller code by converting `Result<T>` objects into appropriate HTTP responses using `ToActionResult()` or `ToActionResultWithResult()`.
 
 ---
 
@@ -16,7 +16,8 @@ dotnet add package Etymon.Result.Extensions
 
 ## ✨ Features
 
-- `ToActionResult()` extension for clean and consistent controller responses
+- `ToActionResult()` for returning `IActionResult` in responses
+- `ToActionResultWithResult()` for returning full `ActionResult<Result<T>>` object in responses
 - Maps `ResultCode` (e.g. `NotFound`, `ValidationError`) to standard HTTP responses
 - Reduces repetitive error handling logic in controller actions
 
@@ -34,6 +35,8 @@ public async Task<Result<ItemDto>> GetItem(int id);
 
 ### 2. In your controller:
 
+#### Using `ToActionResult()` (returns `IActionResult`)
+
 ```csharp
 using Etymon.Result.Extensions;
 
@@ -42,6 +45,17 @@ public async Task<IActionResult> GetItem(int id)
 {
     var result = await _itemService.GetItem(id);
     return result.ToActionResult();
+}
+```
+
+#### Using `ToActionResultWithResult()` (returns full `ActionResult<Result<T>>` in responses)
+
+```csharp
+[HttpGet("{id}")]
+public async Task<ActionResult<Result<ItemDto>>> GetItem(int id)
+{
+    var result = await _itemService.GetItem(id);
+    return result.ToActionResultWithResult();
 }
 ```
 
@@ -79,7 +93,7 @@ public async Task<IActionResult> GetItem(int id)
 
 ## 🔧 How It Works
 
-The `ToActionResult()` method maps `ResultCode` to standard HTTP results:
+The `ToActionResult()` and `ToActionResultWithResult()` methods map `ResultCode` to standard HTTP results:
 
 | `ResultCode`       | HTTP Response       |
 |--------------------|---------------------|
@@ -89,6 +103,15 @@ The `ToActionResult()` method maps `ResultCode` to standard HTTP results:
 | `Unauthorized`     | `403 Forbidden`     |
 | `Conflict`         | `409 Conflict`      |
 | `InternalError`    | `500 Internal Error`|
+
+---
+
+## 📌 Version History
+
+- **1.3.0**
+  - Added `ToActionResultWithResult()` to support full `ActionResult<Result<T>>` responses
+- **1.2.1 and earlier**
+  - Core implementation of `ToActionResult()` with clean HTTP response mappings
 
 ---
 
