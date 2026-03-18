@@ -43,7 +43,7 @@ public class Result
     /// Gets a value indicating whether the operation was successful.
     /// </summary>
     [MemberNotNullWhen(false, nameof(Error))]
-    public bool IsSuccess => Error == null;
+    public virtual bool IsSuccess => Error == null;
 
     /// <summary>
     /// Gets the error associated with a failed operation, or <c>null</c> if the operation was successful.

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Etymon.Result;
 
@@ -36,7 +36,7 @@ public class Result<T> : Result
     /// Gets a value indicating whether the operation was successful.
     /// </summary>
     [MemberNotNullWhen(true, nameof(Data))]
-    public new bool IsSuccess => base.IsSuccess;
+    public override bool IsSuccess => base.IsSuccess;
 
     /// <summary>
     /// Gets the result data if the operation was successful; otherwise, <c>null</c>.
