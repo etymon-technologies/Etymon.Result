@@ -1,4 +1,6 @@
-﻿namespace Etymon.Result;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Etymon.Result;
 
 /// <summary>
 /// Represents the result of an operation with a return value.
@@ -29,6 +31,12 @@ public class Result<T> : Result
     {
         Data = default;
     }
+
+    /// <summary>
+    /// Gets a value indicating whether the operation was successful.
+    /// </summary>
+    [MemberNotNullWhen(true, nameof(Data))]
+    public new bool IsSuccess => base.IsSuccess;
 
     /// <summary>
     /// Gets the result data if the operation was successful; otherwise, <c>null</c>.
@@ -88,7 +96,7 @@ public class Result<T> : Result
         ArgumentNullException.ThrowIfNull(onSuccess);
         ArgumentNullException.ThrowIfNull(onFailure);
 
-        return IsSuccess ? onSuccess(Data!) : onFailure(Error!);
+        return IsSuccess ? onSuccess(Data) : onFailure(Error!); // Surpass nullability check since Error is guaranteed to be non-null when IsSuccess is false.
     }
 
     /// <summary>

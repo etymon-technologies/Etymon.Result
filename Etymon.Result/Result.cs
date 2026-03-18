@@ -1,4 +1,6 @@
-﻿namespace Etymon.Result;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Etymon.Result;
 
 /// <summary>
 /// Represents the result of an operation, encapsulating success or failure states.
@@ -40,6 +42,7 @@ public class Result
     /// <summary>
     /// Gets a value indicating whether the operation was successful.
     /// </summary>
+    [MemberNotNullWhen(false, nameof(Error))]
     public bool IsSuccess => Error == null;
 
     /// <summary>
